@@ -9,13 +9,13 @@
       "schedule": [
         {
           "name": "update-keyword",
-          "clients": 8,
+          "warmup-time-period": {{warmup_time_period | default(20)}},
+          "time-period": {{time_period | default(120)}},
+          "clients": {{update_clients | default(1)}},
           "operation": {
             "operation-type": "raw-request",
             "param-source": "update-keyword-param-source"
-          },
-          "warmup-iterations": 100,
-          "iterations": 1000
+          }
         }
       ]
     }
