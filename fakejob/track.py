@@ -22,7 +22,7 @@ class UpdateKeywordParamSource(QueryParamSource):
         id = str(random.randint(1, 10000000))
         ts = round(time.time() * 1000)
         path = "/job/_update/{}".format(id)
-        if self._params["refresh"]:
+        if "refresh" in self._params:
             path += "?refresh=" + self._params["refresh"]
         result = {
             "method": "POST",
