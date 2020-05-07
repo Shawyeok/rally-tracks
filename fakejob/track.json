@@ -16,6 +16,17 @@
             "operation-type": "raw-request",
             "param-source": "update-keyword-param-source"
           }
+        },
+        {
+          "name": "update-keyword-refresh-wait-for",
+          "warmup-time-period": {{warmup_time_period | default(20)}},
+          "time-period": {{time_period | default(120)}},
+          "clients": {{update_clients | default(1)}},
+          "operation": {
+            "operation-type": "raw-request",
+            "param-source": "update-keyword-param-source",
+            "refresh": "wait_for"
+          }
         }
       ]
     }

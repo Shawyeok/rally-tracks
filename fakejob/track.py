@@ -1,5 +1,6 @@
 import random
 import os
+import time
 
 
 class QueryParamSource:
@@ -19,12 +20,16 @@ class QueryParamSource:
 class UpdateKeywordParamSource(QueryParamSource):
     def params(self):
         id = str(random.randint(1, 10000000))
+        ts = round(time.time() * 1000)
+        path = "/job/_update/{}".format(id)
+        if self._params["refresh"]:
+            path += "?refresh=" + self._params["refresh"]
         result = {
             "method": "POST",
-            "path": "/job/_update/" + id,
+            "path": path,
             "body": {
                 "doc": {
-                    "keyword": "rallytest " + id
+                    "keyword": "rallytest {} {}".format(id, ts)
                 }
             }
         }
