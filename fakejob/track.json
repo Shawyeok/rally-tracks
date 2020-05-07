@@ -3,8 +3,8 @@
   "description": "A fake job benchmark test",
   "challenges": [
     {
-      "name": "update-with-refresh-wait-for",
-      "description": "update with wait_for refresh policy",
+      "name": "update-keyword",
+      "description": "update keyword",
       "default": true,
       "schedule": [
         {
@@ -16,9 +16,16 @@
             "operation-type": "raw-request",
             "param-source": "update-keyword-param-source"
           }
-        },
+        }
+      ]
+    },
+    {
+      "name": "update-keyword-refresh-wait-for",
+      "description": "update keyword field with `wait_for` refresh policy",
+      "default": false,
+      "schedule": [
         {
-          "name": "update-keyword-refresh-wait-for",
+          "name": "update-keyword",
           "warmup-time-period": {{warmup_time_period | default(20)}},
           "time-period": {{time_period | default(120)}},
           "clients": {{update_clients | default(1)}},
@@ -26,6 +33,24 @@
             "operation-type": "raw-request",
             "param-source": "update-keyword-param-source",
             "refresh": "wait_for"
+          }
+        }
+      ]
+    },
+    {
+      "name": "update-keyword-custom-refresh",
+      "description": "update keyword field with custom refresh policy",
+      "default": false,
+      "schedule": [
+        {
+          "name": "update-keyword",
+          "warmup-time-period": {{warmup_time_period | default(20)}},
+          "time-period": {{time_period | default(120)}},
+          "clients": {{update_clients | default(1)}},
+          "operation": {
+            "operation-type": "raw-request",
+            "param-source": "update-keyword-param-source",
+            "refresh": {{refresh | default('false')}}
           }
         }
       ]
