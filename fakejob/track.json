@@ -8,18 +8,14 @@
       "default": true,
       "schedule": [
         {
-          "name": "update",
+          "name": "update-keyword",
+          "clients": 8,
           "operation": {
             "operation-type": "raw-request",
-            "method": "POST",
-            "path": "/job/_update/3",
-            "body": {
-              "doc": {
-                "keyword": "rally test"
-              }
-            }
+            "param-source": "update-keyword-param-source"
           },
-          "iterations": 10
+          "warmup-iterations": 100,
+          "iterations": 1000
         }
       ]
     }
