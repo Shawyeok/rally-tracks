@@ -54,6 +54,63 @@
           }
         }
       ]
+    },
+    {
+      "name": "parallel",
+      "description": "running update/search request in parallel",
+      "default": false,
+      "schedule": [
+        {
+          "parallel": {
+            "warmup-time-period": 30,
+            "time-period": {{time_period | default(600)}},
+            "tasks": [
+              {
+                "name": "update-keyword",
+                "clients": {{normal_update_clients | default(8)}},
+                "target-throughput": 5000,
+                "operation": {
+                  "operation-type": "raw-request",
+                  "param-source": "update-keyword-param-source"
+                }
+              },
+              {
+                "name": "update-keyword-wait-for",
+                "clients": {{wait_for_update_clients | default(8)}},
+                "target-throughput": 500,
+                "operation": {
+                  "operation-type": "raw-request",
+                  "param-source": "update-keyword-param-source",
+                  "refresh": "wait_for"
+                }
+              },
+              {
+                "name": "query",
+                "clients": {{query_clients | default(48)}},
+                "target-throughput": 20000,
+                "operation": {
+                  "operation-type": "search",
+                  "index": "job",
+                  "body": {
+                    "query": {
+                      "match": {
+                        "keyword": "rallytest"
+                      }
+                    },
+                    "sort": [
+                      {
+                        "modifyTime": {
+                          "order": "desc"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      ]
     }
   ]
 }

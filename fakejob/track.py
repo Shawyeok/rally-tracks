@@ -29,7 +29,8 @@ class UpdateKeywordParamSource(QueryParamSource):
             "path": path,
             "body": {
                 "doc": {
-                    "keyword": "rallytest {} {}".format(id, ts)
+                    "keyword": "rallytest {} {}".format(id, ts),
+                    "modifyTime": ts
                 }
             }
         }
