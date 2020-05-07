@@ -228,7 +228,7 @@
         },
         {
           "operation": "index-append",
-          "warmup-time-period": 120,
+          "warmup-time-period": 20,
           "clients": {{bulk_indexing_clients | default(8)}}
         },
         {
