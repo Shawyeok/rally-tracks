@@ -56,6 +56,37 @@
       ]
     },
     {
+      "name": "query-only",
+      "description": "query documents use search api only",
+      "default": false,
+      "schedule": [
+        {
+          "name": "query",
+          "warmup-time-period": {{warmup_time_period | default(30)}},
+          "time-period": {{time_period | default(120)}},
+          "clients": {{query_clients | default(1)}},
+          "operation": {
+            "operation-type": "search",
+            "index": "job",
+            "body": {
+              "query": {
+                "match": {
+                  "keyword": "rallytest"
+                }
+              },
+              "sort": [
+                {
+                  "modifyTime": {
+                    "order": "desc"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
       "name": "parallel",
       "description": "running update/search request in parallel",
       "default": false,
