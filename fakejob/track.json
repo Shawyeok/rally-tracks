@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "description": "A fake job benchmark test",
+  "challenges": [
+    {
+      "name": "update-with-refresh-wait-for",
+      "description": "update with wait_for refresh policy",
+      "default": true,
+      "schedule": [
+        {
+          "name": "update",
+          "operation": {
+            "operation-type": "raw-request",
+            "method": "POST",
+            "path": "/job/_update/3",
+            "body": {
+              "doc": {
+                "keyword": "rally test"
+              }
+            }
+          },
+          "iterations": 10
+        }
+      ]
+    }
+  ]
+}
